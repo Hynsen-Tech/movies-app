@@ -5,6 +5,7 @@ import 'package:mvvm_state_management/screens/movies_screen.dart';
 import 'package:mvvm_state_management/screens/splash_screen.dart';
 import 'package:mvvm_state_management/services/init_getit.dart';
 import 'package:mvvm_state_management/theme/theme_data.dart';
+import 'package:mvvm_state_management/view_models/favorites/favorites_bloc.dart';
 import 'package:mvvm_state_management/view_models/movies/movies_bloc.dart';
 import 'package:mvvm_state_management/view_models/theme/theme_bloc.dart';
 import 'services/navigation_service.dart';
@@ -14,13 +15,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(MultiBlocProvider(
-      providers: [
-        BlocProvider<ThemeBloc>(
-          create: (_) => getIt<ThemeBloc>()..add(LoadThemeEvent()),
-        ),
-      ],
-        child: const MyApp()));
+    runApp(const MyApp());
   });
 }
 
@@ -32,8 +27,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider<ThemeBloc>(
+            create: (_) => getIt<ThemeBloc>()..add(LoadThemeEvent()),
+          ),
           BlocProvider<MoviesBloc>(
-              create: (_) => getIt<MoviesBloc>()..add(FetchMoviesEvent()))
+              create: (_) => getIt<MoviesBloc>()..add(FetchMoviesEvent())),
+          BlocProvider<FavoritesBloc>(create: (_) => getIt<FavoritesBloc>()..add(LoadFavoritesEvent())),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
           return MaterialApp(

@@ -63,7 +63,7 @@ class MoviesWidget extends StatelessWidget {
                           children: [
                             ReleaseDateWidget(releaseDate: movie.releaseDate),
                             Spacer(),
-                            FavoriteBtnWidget(),
+                            FavoriteBtnWidget(movie: movie,),
                           ],
                         ),
                       ],

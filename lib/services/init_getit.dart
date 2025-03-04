@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:mvvm_state_management/services/navigation_service.dart';
 import 'package:mvvm_state_management/utils/network_util.dart';
+import 'package:mvvm_state_management/view_models/favorites/favorites_bloc.dart';
 import 'package:mvvm_state_management/view_models/movies/movies_bloc.dart';
 import 'package:mvvm_state_management/view_models/theme/theme_bloc.dart';
 import '../repository/movie_repository.dart';
@@ -15,4 +16,5 @@ void setupLocator() {
   getIt.registerLazySingleton<GenreUtil>(()=>GenreUtil());
   getIt.registerLazySingleton<ThemeBloc>(()=>ThemeBloc());
   getIt.registerLazySingleton<MoviesBloc>(()=>MoviesBloc());
+  getIt.registerLazySingleton<FavoritesBloc>(()=>FavoritesBloc());
 }

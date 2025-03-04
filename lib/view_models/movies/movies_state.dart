@@ -21,6 +21,9 @@ final class MoviesLoadedState extends MoviesState {
     this.movieGenres = const [],
     this.currentPage = 1,
   });
+
+  @override
+  List<Object> get props => [movies, movieGenres, currentPage];
 }
 
 final class MoviesIsLoadingMoreState extends MoviesState {
@@ -33,10 +36,16 @@ final class MoviesIsLoadingMoreState extends MoviesState {
     this.movieGenres = const [],
     this.currentPage = 1,
   });
+
+  @override
+  List<Object> get props => [movies, movieGenres, currentPage];
 }
 
 final class MoviesErrorState extends MoviesState {
   final String errorMessage;
 
   const MoviesErrorState({required this.errorMessage});
+
+  @override
+  List<Object> get props => [errorMessage];
 }

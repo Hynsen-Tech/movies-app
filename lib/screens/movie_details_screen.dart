@@ -65,12 +65,16 @@ class MovieDetailsScreen extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    RatingWidget(voteAverage: movie.voteAverage.round()),
-                                    ReleaseDateWidget(releaseDate: movie.releaseDate),
+                                    RatingWidget(
+                                        voteAverage: movie.voteAverage.round()),
+                                    ReleaseDateWidget(
+                                        releaseDate: movie.releaseDate),
                                   ],
                                 ),
                                 const SizedBox(height: 20),
-                                GenresListWidget(genreIds: movie.genreIds,),
+                                GenresListWidget(
+                                  genreIds: movie.genreIds,
+                                ),
                                 const SizedBox(height: 20),
                                 Text(
                                   movie.overview,
@@ -91,9 +95,10 @@ class MovieDetailsScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.onPrimary,
                             shape: BoxShape.circle,
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: FavoriteBtnWidget(iconSize: 30),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child:
+                                FavoriteBtnWidget(movie: movie, iconSize: 30),
                           ),
                         ),
                       )

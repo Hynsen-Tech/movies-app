@@ -7,6 +7,7 @@ import 'package:mvvm_state_management/services/navigation_service.dart';
 import 'package:mvvm_state_management/theme/icons.dart';
 import 'package:mvvm_state_management/view_models/movies/movies_bloc.dart';
 import 'package:mvvm_state_management/view_models/theme/theme_bloc.dart';
+import 'package:mvvm_state_management/widgets/loading_widget.dart';
 import '../repository/movie_repository.dart';
 import '../widgets/error_widget.dart';
 import '../widgets/movies/movies_widget.dart';
@@ -48,18 +49,7 @@ class MoviesScreen extends StatelessWidget {
         final currentState = state;
         switch (currentState) {
           case MoviesIsLoadingState():
-            return const Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('Loading...'),
-                SizedBox(
-                  height: 10,
-                ),
-                CircularProgressIndicator.adaptive(),
-              ],
-            ));
+            return LoadingWidget();
           case MoviesLoadedState() || MoviesIsLoadingMoreState():
             final List<MovieModel> movies = currentState is MoviesLoadedState
                 ? currentState.movies
@@ -104,21 +94,22 @@ class MoviesScreen extends StatelessWidget {
                     }),
               );
             }
-            return Center();
-          case MoviesErrorState():
-            return MyErrorWidget(
-              errorText: currentState.errorMessage,
-              retryFunction: () {
-                moviesBloc.add(FetchMoviesEvent());
-              },
-            );
           default:
-            return MyErrorWidget(
-              errorText: 'Some error occurred',
-              retryFunction: () {
-                moviesBloc.add(FetchMoviesEvent());
-              },
-            );
+            if (currentState is MoviesErrorState) {
+              return MyErrorWidget(
+                errorText: currentState.errorMessage,
+                retryFunction: () {
+                  moviesBloc.add(FetchMoviesEvent());
+                },
+              );
+            } else {
+              return MyErrorWidget(
+                errorText: 'Some error occurred',
+                retryFunction: () {
+                  moviesBloc.add(FetchMoviesEvent());
+                },
+              );
+            }
         }
       }),
     );
