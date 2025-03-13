@@ -4,14 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mvvm_state_management/theme/theme_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-part 'theme_event.dart';
 part 'theme_state.dart';
 
-class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+class ThemeBloc extends Cubit<ThemeState> {
   ThemeBloc() : super(ThemeInitial(themeData: _getDefaultTheme())) {
-    on<LoadThemeEvent>(_loadTheme);
-
-    on<ToggleThemeEvent>(_toggleTheme);
+    _loadTheme();
   }
 
   final String _isLightThemeKey = "isLightTheme";
@@ -20,7 +17,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     return MyThemeData.lightTheme;
   }
 
-  Future<void> _loadTheme(LoadThemeEvent event, Emitter<ThemeState> emit) async {
+  Future<void> _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
     bool isLightTheme = prefs.getBool(_isLightThemeKey) ?? true;
     if (isLightTheme) {
@@ -30,7 +27,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     }
   }
 
-  Future<void> _toggleTheme(ToggleThemeEvent event, Emitter<ThemeState> emit) async {
+  Future<void> toggleTheme() async {
     final prefs = await SharedPreferences.getInstance();
     final currentState = state;
     if (currentState is LightThemeState) {

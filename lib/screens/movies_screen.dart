@@ -18,13 +18,14 @@ class MoviesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text('Popular Movies'),
         actions: [
           IconButton(
             onPressed: () {
               getIt<NavigationService>()
-                  .navigate(FavoritesScreen(/*movies: _movies*/));
+                  .navigate(FavoritesScreen());
             },
             icon: const Icon(MyAppIcons.favoriteRounded),
             color: Colors.red,
@@ -32,7 +33,7 @@ class MoviesScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               //context.read<ThemeBloc>().add(ToggleThemeEvent());
-              getIt<ThemeBloc>().add(ToggleThemeEvent());
+              getIt<ThemeBloc>().toggleTheme();
             },
             icon: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
               return Icon(

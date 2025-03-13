@@ -22,19 +22,20 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider<ThemeBloc>(
-            create: (_) => getIt<ThemeBloc>()..add(LoadThemeEvent()),
-          ),
-          BlocProvider<MoviesBloc>(
-              create: (_) => getIt<MoviesBloc>()..add(FetchMoviesEvent())),
-          BlocProvider<FavoritesBloc>(create: (_) => getIt<FavoritesBloc>()..add(LoadFavoritesEvent())),
-        ],
-        child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {
+      providers: [
+        BlocProvider<ThemeBloc>(
+          create: (_) => getIt<ThemeBloc>(),
+        ),
+        BlocProvider<MoviesBloc>(
+            create: (_) => getIt<MoviesBloc>()..add(FetchMoviesEvent())),
+        BlocProvider<FavoritesBloc>(
+            create: (_) => getIt<FavoritesBloc>()..add(LoadFavoritesEvent())),
+      ],
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
           return MaterialApp(
             navigatorKey: getIt<NavigationService>().navigatorKey,
             debugShowCheckedModeBanner: false,
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
                 : MyThemeData.lightTheme,
             home: const SplashScreen(),
           );
-        }));
+        },
+      ),
+    );
   }
 }

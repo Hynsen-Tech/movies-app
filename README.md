@@ -3,7 +3,7 @@
 ![](https://api.visitorbadge.io/api/VisitorHit?user=Hynsen-Tech/flutter-movies-app&repo=github-visitors-badge&countColor=%237B1E7A)
 
 ## About
-Multi-platform movies application built with **Flutter**. This Mobile App utilizes a wide range of features, including, **MVVM Architectural Pattern**, **BLoC for State Management**, **GetIt**, , **RESTful APIs**, and more.
+Multi-platform movies application built with **Flutter**. This Mobile App utilizes a wide range of features, including, **MVVM Architectural Pattern**, **BLoC and Cubit for State Management**, **GetIt**, , **RESTful APIs**, and more.
 
 Here you can see a real list of the movies, fetched from the server and see more details.
 
